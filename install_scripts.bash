@@ -19,6 +19,7 @@ download_and_extract()
 create_build_dir()
 {
   local build_dir=$PREFIX/build/$1
+	[[ -d $build_dir ]] && rm -r "$build_dir"
   mkdir -p "$build_dir"
   cd $build_dir
 }
