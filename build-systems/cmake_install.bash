@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# download, cmake, and make a cmake project
+# this is an out-of-source build
+# this file is mean to be sourced from the top-level project directory
+
 source install_scripts.bash
 
 cmake_install()
