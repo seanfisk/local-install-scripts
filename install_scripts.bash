@@ -4,6 +4,11 @@ set -o errexit
 set -o xtrace
 
 readonly PREFIX=$HOME/.local
+readonly SOURCE_DIR=source
+
+# sandbox directory for downloading sources
+[[ ! -d $SOURCE_DIR ]] && mkdir -p "$SOURCE_DIR"
+cd $SOURCE_DIR
 
 download_and_extract()
 {
