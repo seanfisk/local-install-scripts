@@ -30,5 +30,5 @@ make_install()
   for step in ${EXTRA_MAKE_STEPS[@]:+$EXTRA_MAKE_FLAGS[@]}; do
     make $step
   done
-  make install ${EXTRA_MAKE_INSTALL_FLAGS[@]:+$EXTRA_MAKE_INSTALL_FLAGS[@]}
+  make ${EXTRA_MAKE_INSTALL_FLAGS[@]:+$EXTRA_MAKE_INSTALL_FLAGS[@]} install
 }
