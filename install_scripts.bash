@@ -18,7 +18,7 @@ download_and_extract()
 	extracted_files=$(tar -xvf "$archive_name")
 	src_dir_name=$(head --lines=1 <<< "$extracted_files")
 	# remove trailing slash
-	src_dir_name=${src_dir_name%/}
+	src_dir_name=${src_dir_name%%/*}
 }
 
 create_build_dir()
