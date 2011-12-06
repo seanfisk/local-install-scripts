@@ -5,9 +5,8 @@ source install_scripts.bash
 readonly BOOST_VERSION=1.48.0
 readonly BOOST_VERSION_UNDERSCORE=${BOOST_VERSION//./_}
 
-#download_and_extract "http://sourceforge.net/projects/boost/files/boost/$BOOST_VERSION/boost_$BOOST_VERSION_UNDERSCORE.tar.bz2"
+download_and_extract "http://sourceforge.net/projects/boost/files/boost/$BOOST_VERSION/boost_$BOOST_VERSION_UNDERSCORE.tar.bz2"
 
-src_dir_name=boost_1_48_0
 cd $src_dir_name
 
 ./bootstrap.sh
