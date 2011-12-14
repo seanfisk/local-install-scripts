@@ -31,9 +31,9 @@ create_build_dir()
 
 make_install()
 {
-  make ${EXTRA_MAKE_FLAGS[@]:+$EXTRA_MAKE_FLAGS[@]}
-  for step in ${EXTRA_MAKE_STEPS[@]:+$EXTRA_MAKE_FLAGS[@]}; do
+  make ${EXTRA_MAKE_FLAGS[@]:+${EXTRA_MAKE_FLAGS[@]}}
+  for step in ${EXTRA_MAKE_STEPS[@]:+${EXTRA_MAKE_STEPS[@]}}; do
     make $step
   done
-  make ${EXTRA_MAKE_INSTALL_FLAGS[@]:+$EXTRA_MAKE_INSTALL_FLAGS[@]} install
+  make ${EXTRA_MAKE_INSTALL_FLAGS[@]:+${EXTRA_MAKE_INSTALL_FLAGS[@]}} install
 }
