@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # openssl does not support out-of-source builds in a nice way
 source install_scripts.bash
@@ -13,4 +13,3 @@ cd $src_dir_name
 make --jobs=1
 # has problems with multiple jobs
 make --jobs=1 install
-

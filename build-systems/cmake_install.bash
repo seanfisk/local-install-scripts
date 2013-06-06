@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # download, cmake, and make a cmake project
 # this is an out-of-source build

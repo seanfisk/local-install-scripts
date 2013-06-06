@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # download, configure, make, and make install an autotools project
 # this is an out-of-source build

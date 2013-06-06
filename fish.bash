@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # fish does not support out-of-source builds
 source install_scripts.bash

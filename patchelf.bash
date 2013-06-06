@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # patchelf make check does not support out-of-source builds
 source install_scripts.bash

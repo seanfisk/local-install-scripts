@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # note: I used this script for building on Seawolf in the DEN at GVSU
 
