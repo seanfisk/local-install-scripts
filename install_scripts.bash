@@ -29,11 +29,21 @@ create_build_dir()
   cd $build_dir
 }
 
+set_rpath()
+{
+  find . -type f -executable -print0 | while read -r -d $'\0' binary; do
+    if [[ "$(file --brief "$binary")" == ELF* ]]; then
+      patchelf --set-rpath "$(patchelf --print-rpath "$binary"):$PREFIX/lib:$PREFIX/lib64" "$binary"
+    fi
+  done
+}
+
 make_install()
 {
   make "${EXTRA_MAKE_FLAGS[@]:+${EXTRA_MAKE_FLAGS[@]}}"
   for step in ${EXTRA_MAKE_STEPS[@]:+${EXTRA_MAKE_STEPS[@]}}; do
     make "$step"
   done
+  set_rpath
   make "${EXTRA_MAKE_INSTALL_FLAGS[@]:+${EXTRA_MAKE_INSTALL_FLAGS[@]}}" install
 }
