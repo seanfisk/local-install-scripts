@@ -34,6 +34,17 @@ create_build_dir()
   cd $build_dir
 }
 
+# Patches all binaries in the current directory with the $PREFIX
+# rpath.
+set_rpath()
+{
+  find . -type f -executable -print0 | while read -r -d $'\0' binary; do
+    if [[ "$(file --brief "$binary")" == ELF* ]]; then
+      patchelf --set-rpath "$(patchelf --print-rpath "$binary"):$PREFIX/lib:$PREFIX/lib64" "$binary"
+    fi
+  done
+}
+
 # Run make and make install.
 # $EXTRA_MAKE_FLAGS: array of more flags to pass to make
 # $EXTRA_MAKE_STEPS: array of more make steps to run, e.g. ("make check")
@@ -44,5 +55,6 @@ make_install()
   for step in ${EXTRA_MAKE_STEPS[@]:+${EXTRA_MAKE_STEPS[@]}}; do
     make "$step"
   done
+  set_rpath
   make "${EXTRA_MAKE_INSTALL_FLAGS[@]:+${EXTRA_MAKE_INSTALL_FLAGS[@]}}" install
 }
