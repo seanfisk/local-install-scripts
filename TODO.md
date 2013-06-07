@@ -1,6 +1,5 @@
 # TODO
 
-* Switch download dir to `$PREFIX/src`
 * Merge patchelf request and conditionally patch rpath if it's available
 * Fix tabs/spaces
 * Rename `install_scripts.bash` and put in a "lib" directory (like `build_systems`)

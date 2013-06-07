@@ -1,12 +1,11 @@
-#!/usr/bin/env bash
 set -o nounset
 set -o errexit
 set -o xtrace
 
 readonly PREFIX=$HOME/.local
-readonly SOURCE_DIR=source
+readonly SOURCE_DIR=$PREFIX/src
 
-# sandbox directory for downloading sources
+# Sandbox directory for downloading sources
 [[ ! -d $SOURCE_DIR ]] && mkdir -p "$SOURCE_DIR"
 cd $SOURCE_DIR
 
