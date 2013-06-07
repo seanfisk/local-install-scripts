@@ -45,6 +45,13 @@ set_rpath()
   done
 }
 
+# Check to see if an executable is in the path.
+# $1: the executable name to find
+is_executable_in_path() {
+	builtin hash $1 2>/dev/null
+}
+
+
 # Run make and make install.
 # $EXTRA_MAKE_FLAGS: array of more flags to pass to make
 # $EXTRA_MAKE_STEPS: array of more make steps to run, e.g. ("make check")
@@ -55,6 +62,9 @@ make_install()
   for step in ${EXTRA_MAKE_STEPS[@]:+${EXTRA_MAKE_STEPS[@]}}; do
     make "$step"
   done
-  set_rpath
+  # Patch rpath in binaries if patchelf is available.
+	if is_executable_in_path patchelf; then
+		set_rpath
+  fi
   make "${EXTRA_MAKE_INSTALL_FLAGS[@]:+${EXTRA_MAKE_INSTALL_FLAGS[@]}}" install
 }
