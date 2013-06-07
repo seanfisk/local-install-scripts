@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source install_scripts.bash
+source lib/common.bash
 
 readonly BOOST_VERSION=1.48.0
 readonly BOOST_VERSION_UNDERSCORE=${BOOST_VERSION//./_}
