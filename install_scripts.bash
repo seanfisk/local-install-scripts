@@ -16,7 +16,7 @@ download_and_extract()
 	wget "$1"
 	extracted_files=$(tar -xvf "$archive_name")
 	src_dir_name=$(head --lines=1 <<< "$extracted_files")
-	# remove trailing slash
+	# Remove trailing slash
 	src_dir_name=${src_dir_name%%/*}
 }
 

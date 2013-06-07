@@ -1,8 +1,9 @@
-#!/usr/bin/env bash
-
-# download, configure, make, and make install an autotools project
-# this is an out-of-source build
-# this file is mean to be sourced from the top-level project directory
+# Download, configure, make, and make install an autotools project.
+#
+# This is an out-of-source build.
+#
+# This file is meant to be sourced from the top-level project
+# directory.
 
 source install_scripts.bash
 
