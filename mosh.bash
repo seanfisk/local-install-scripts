@@ -2,7 +2,7 @@
 
 # ./protobuf.bash
 
-source build-systems/autotools.bash
+source lib/autotools.bash
 
 # Mosh needs to be able to find `protobuf.pc' in the pkg-config path,
 # so export this environment variable.

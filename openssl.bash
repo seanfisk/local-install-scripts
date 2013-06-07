@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # openssl does not support out-of-source builds in a nice way
-source install_scripts.bash
+source lib/common.bash
 
 download_and_extract http://www.openssl.org/source/openssl-0.9.8s.tar.gz
 # too new for ruby

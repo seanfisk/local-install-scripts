@@ -9,6 +9,10 @@ readonly SOURCE_DIR=$PREFIX/src
 [[ ! -d $SOURCE_DIR ]] && mkdir -p "$SOURCE_DIR"
 cd $SOURCE_DIR
 
+# Download and extract a source archive (tarball).
+# $1: tarball URL
+# returns
+# $src_dir_name: name of the source directory
 download_and_extract()
 {
   local archive_name=${1##*/}
@@ -20,6 +24,8 @@ download_and_extract()
 	src_dir_name=${src_dir_name%%/*}
 }
 
+# Create the build directory and change to it.
+# $1: name of the directory to create
 create_build_dir()
 {
   local build_dir=$PREFIX/build/$1
@@ -28,6 +34,10 @@ create_build_dir()
   cd $build_dir
 }
 
+# Run make and make install.
+# $EXTRA_MAKE_FLAGS: array of more flags to pass to make
+# $EXTRA_MAKE_STEPS: array of more make steps to run, e.g. ("make check")
+# $EXTRA_MAKE_INSTALL_FLAGS: array of more flags to pass to make install
 make_install()
 {
   make "${EXTRA_MAKE_FLAGS[@]:+${EXTRA_MAKE_FLAGS[@]}}"

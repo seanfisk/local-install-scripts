@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-source build-systems/autotools.bash
-
+source lib/autotools.bash
 EXTRA_CONFIGURE_FLAGS=(
 	-opensource
 	-shared

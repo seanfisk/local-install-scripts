@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 
-source build-systems/autotools.bash
-
+source lib/autotools.bash
 autotools https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
