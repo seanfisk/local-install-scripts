@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source install_scripts.bash
+source lib/common.bash
 
 repo=gitflow
 
