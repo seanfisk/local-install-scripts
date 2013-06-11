@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # patchelf make check does not support out-of-source builds
-source install_scripts.bash
+source lib/common.bash
 
 download_and_extract http://hydra.nixos.org/build/1524660/download/2/patchelf-0.6.tar.bz2
 cd $src_dir_name
