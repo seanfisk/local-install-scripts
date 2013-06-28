@@ -15,7 +15,7 @@ cd $SOURCE_DIR
 # $src_dir_name: name of the source directory
 download_and_extract()
 {
-  local archive_name=${1##*/}
+	local archive_name=${1##*/}
 	[[ -f $archive_name ]] && rm "$archive_name"
 	wget "$1"
 	extracted_files=$(tar -xvf "$archive_name")
@@ -28,21 +28,21 @@ download_and_extract()
 # $1: name of the directory to create
 create_build_dir()
 {
-  local build_dir=$PREFIX/build/$1
+	local build_dir=$PREFIX/build/$1
 	[[ -d $build_dir ]] && rm -r "$build_dir"
-  mkdir -p "$build_dir"
-  cd $build_dir
+	mkdir -p "$build_dir"
+	cd $build_dir
 }
 
 # Patches all binaries in the current directory with the $PREFIX
 # rpath.
 set_rpath()
 {
-  find . -type f -executable -print0 | while read -r -d $'\0' binary; do
-    if [[ "$(file --brief "$binary")" == ELF* ]]; then
-      patchelf --set-rpath "$(patchelf --print-rpath "$binary"):$PREFIX/lib:$PREFIX/lib64" "$binary"
-    fi
-  done
+	find . -type f -executable -print0 | while read -r -d $'\0' binary; do
+		if [[ "$(file --brief "$binary")" == ELF* ]]; then
+			patchelf --set-rpath "$(patchelf --print-rpath "$binary"):$PREFIX/lib:$PREFIX/lib64" "$binary"
+		fi
+	done
 }
 
 # Check to see if an executable is in the path.
@@ -58,13 +58,13 @@ is_executable_in_path() {
 # $EXTRA_MAKE_INSTALL_FLAGS: array of more flags to pass to make install
 make_install()
 {
-  make "${EXTRA_MAKE_FLAGS[@]:+${EXTRA_MAKE_FLAGS[@]}}"
-  for step in ${EXTRA_MAKE_STEPS[@]:+${EXTRA_MAKE_STEPS[@]}}; do
-    make "$step"
-  done
-  # Patch rpath in binaries if patchelf is available.
+	make "${EXTRA_MAKE_FLAGS[@]:+${EXTRA_MAKE_FLAGS[@]}}"
+	for step in ${EXTRA_MAKE_STEPS[@]:+${EXTRA_MAKE_STEPS[@]}}; do
+		make "$step"
+	done
+	# Patch rpath in binaries if patchelf is available.
 	if is_executable_in_path patchelf; then
 		set_rpath
-  fi
-  make "${EXTRA_MAKE_INSTALL_FLAGS[@]:+${EXTRA_MAKE_INSTALL_FLAGS[@]}}" install
+	fi
+	make "${EXTRA_MAKE_INSTALL_FLAGS[@]:+${EXTRA_MAKE_INSTALL_FLAGS[@]}}" install
 }

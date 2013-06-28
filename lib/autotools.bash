@@ -10,12 +10,12 @@ source lib/common.bash
 autotools()
 {
 	download_and_extract $1
-  configure_path=$(readlink --canonicalize-existing "$src_dir_name/configure")
+	configure_path=$(readlink --canonicalize-existing "$src_dir_name/configure")
 	if [[ -z ${IN_SOURCE:+IN_SOURCE} ]]; then
 		create_build_dir $src_dir_name
 	else
 		cd $src_dir_name
 	fi
-  "$configure_path" --prefix="$PREFIX" "${EXTRA_CONFIGURE_FLAGS[@]:+${EXTRA_CONFIGURE_FLAGS[@]}}"
+	"$configure_path" --prefix="$PREFIX" "${EXTRA_CONFIGURE_FLAGS[@]:+${EXTRA_CONFIGURE_FLAGS[@]}}"
 	make_install
 }
