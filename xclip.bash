@@ -4,4 +4,5 @@ source lib/autotools.bash
 
 # xclip does not support out-of-source builds.
 IN_SOURCE=true
-autotools http://sourceforge.net/projects/xclip/files/xclip/0.12/xclip-0.12.tar.gz
+readonly XCLIP_VERSION=0.12
+autotools "http://sourceforge.net/projects/xclip/files/xclip/$XCLIP_VERSION/xclip-$XCLIP_VERSION.tar.gz"
