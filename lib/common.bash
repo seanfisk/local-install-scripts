@@ -17,7 +17,8 @@ download_and_extract()
 {
 	local archive_name=${1##*/}
 	[[ -f $archive_name ]] && rm "$archive_name"
-	wget "$1"
+	# Added the `--output-document' mainly to tame the messy Github URLs.
+	wget "$1" --output-document="$archive_name"
 	extracted_files=$(tar -xvf "$archive_name")
 	src_dir_name=$(head --lines=1 <<< "$extracted_files")
 	# Remove trailing slash
