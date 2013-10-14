@@ -10,7 +10,7 @@ source lib/common.bash
 autotools()
 {
 	download_and_extract $1
-	configure_path=$(readlink --canonicalize-existing "$src_dir_name/configure")
+	configure_path="$PWD/$src_dir_name/configure"
 	if [[ -z ${IN_SOURCE:+IN_SOURCE} ]]; then
 		create_build_dir $src_dir_name
 	else

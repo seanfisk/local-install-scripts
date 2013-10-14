@@ -10,7 +10,7 @@ source lib/common.bash
 cmake_install()
 {
 	download_and_extract $1
-	source_path=$(readlink --canonicalize-existing "$src_dir_name")
+	source_path="$PWD/$src_dir_name"
 	if [[ -z ${IN_SOURCE:+IN_SOURCE} ]]; then
 		create_build_dir $src_dir_name
 	else

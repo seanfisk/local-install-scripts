@@ -19,8 +19,8 @@ download_and_extract()
 	[[ -f $archive_name ]] && rm "$archive_name"
 	# Added the `--output-document' mainly to tame the messy Github URLs.
 	wget "$1" --output-document="$archive_name"
-	extracted_files=$(tar -xvf "$archive_name")
-	src_dir_name=$(head --lines=1 <<< "$extracted_files")
+	# The `cut' call is for compatibility with BSD (OS X) tar, which adds an x before every file extracted.
+	src_dir_name=$(tar -xvf "$archive_name" 2>&1 | head -n 1 | cut -f2 -d' ')
 	# Remove trailing slash
 	src_dir_name=${src_dir_name%%/*}
 }

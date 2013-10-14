@@ -53,7 +53,7 @@ if $build_llvm_clang; then
 	# Download LLVM.
 	download_and_extract_llvm_package llvm
 	llvm_dir=$src_dir_name
-	configure_path=$(readlink --canonicalize-existing "$llvm_dir/configure")
+	configure_path="$PWD/$llvm_dir/configure"
 
 	# Download Clang.
 	pushd $llvm_dir/tools
