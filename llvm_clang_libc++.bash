@@ -43,7 +43,7 @@ llvm_package_url() {
 
 # $1: the package to download
 download_and_extract_llvm_package() {
-	download_and_extract "$(llvm_package_url '$1')"
+	download_and_extract "$(llvm_package_url $1)"
 }
 
 if $build_llvm_clang; then
@@ -70,7 +70,7 @@ if $build_llvm_clang; then
 
 	# Build and install.
 	create_build_dir $llvm_dir
-	"$configure_path" --prefix="$PREFIX"
+	CC="$(which gcc)" CXX="$(which g++)" "$configure_path" --prefix="$PREFIX"
 
 	make_install
 fi
