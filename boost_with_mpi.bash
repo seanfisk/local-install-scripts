@@ -2,7 +2,7 @@
 
 source lib/common.bash
 
-readonly BOOST_VERSION=1.48.0
+readonly BOOST_VERSION=1.54.0
 readonly BOOST_VERSION_UNDERSCORE=${BOOST_VERSION//./_}
 
 download_and_extract "http://sourceforge.net/projects/boost/files/boost/$BOOST_VERSION/boost_$BOOST_VERSION_UNDERSCORE.tar.bz2"
