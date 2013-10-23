@@ -40,14 +40,22 @@ create_build_dir()
 	cd $build_dir
 }
 
-# Patches all binaries in the current directory with the $PREFIX
+# Patches all executables in the current directory with the $PREFIX
 # rpath.
 set_rpath()
 {
-	find . -type f -executable -print0 | while read -r -d $'\0' binary; do
-		if [[ "$(file --brief "$binary")" == ELF* ]]; then
-			patchelf --set-rpath "$(patchelf --print-rpath "$binary"):$PREFIX/lib:$PREFIX/lib64" "$binary"
+	find . -type f -executable -print0 | while read -r -d $'\0' exe; do
+		if [[ "$(file --brief "$exe")" == ELF* ]]; then
+			patchelf --set-rpath "$(patchelf --print-rpath "$exe"):$PREFIX/lib:$PREFIX/lib64" "$exe"
 		fi
+	done
+}
+
+# Compress all executables in the current directory using UPX.
+compress_executables()
+{
+	find . -type f -executable -print0 | while read -r -d $'\0' exe; do
+		upx --best "$exe"
 	done
 }
 
@@ -71,6 +79,9 @@ make_install()
 	# Patch rpath in binaries if patchelf is available.
 	if is_executable_in_path patchelf; then
 		set_rpath
+	fi
+	if is_executable_in_path upx; then
+		compress_executables
 	fi
 	make "${EXTRA_MAKE_INSTALL_FLAGS[@]:+${EXTRA_MAKE_INSTALL_FLAGS[@]}}" install
 }
