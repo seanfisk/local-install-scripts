@@ -55,7 +55,10 @@ set_rpath()
 compress_executables()
 {
 	find . -type f -executable -print0 | while read -r -d $'\0' exe; do
+		# If UPX refuses to compress the executable (due to permissions, file type, etc.) the executable will be unchanged but UPX will still exit with failure. Don't exit the script if this happens.
+		set +o errexit
 		upx --best "$exe"
+		set -o errexit
 	done
 }
 
