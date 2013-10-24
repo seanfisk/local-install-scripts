@@ -45,7 +45,7 @@ create_build_dir()
 set_rpath()
 {
 	find . -type f -executable -print0 | while read -r -d $'\0' exe; do
-		if [[ "$(file --brief "$exe")" == ELF* ]]; then
+		if [[ "$(file --brief "$exe")" == ELF*dynamically* ]]; then
 			patchelf --set-rpath "$(patchelf --print-rpath "$exe"):$PREFIX/lib:$PREFIX/lib64" "$exe"
 		fi
 	done
