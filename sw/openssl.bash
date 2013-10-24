@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
 
-# openssl does not support out-of-source builds in a nice way
-source lib/common.bash
+source lib/autotools.bash
 
-download_and_extract http://www.openssl.org/source/openssl-0.9.8s.tar.gz
-# too new for ruby
-# download_and_extract http://www.openssl.org/source/openssl-1.0.0f.tar.gz
-cd $src_dir_name
-./config --prefix="$PREFIX" shared
-# the tests fail for some reason
+# openssl does not support out-of-source builds in a nice way.
+IN_SOURCE=true
+
+readonly OPENSSL_VERSION=0.9.8s
+# too new for Ruby
+# readonly OPENSSL_VERSION=1.0.0f
+
+EXTRA_CONFIGURE_FLAGS=(shared)
+
 # readonly EXTRA_MAKE_STEPS=(test)
-make --jobs=1
-# has problems with multiple jobs
-make --jobs=1 install
+# Has problems with multiple jobs.
+EXTRA_MAKE_FLAGS=(--jobs=1)
+EXTRA_MAKE_INSTALL_FLAGS=(--jobs=1)
+
+autotools "http://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"

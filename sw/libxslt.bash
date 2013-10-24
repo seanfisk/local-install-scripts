@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# does not support out-of-source builds
-source lib/common.bash
+source lib/autotools.bash
 
-download_and_extract ftp://xmlsoft.org/libxslt/libxslt-1.1.26.tar.gz
-cd $src_dir_name
-./configure --prefix="$PREFIX"
-make_install
+# Does not support out-of-source builds.
+IN_SOURCE=true
+
+autotools ftp://xmlsoft.org/libxslt/libxslt-1.1.26.tar.gz

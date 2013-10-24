@@ -33,8 +33,9 @@ fi
 
 readonly LLVM_VERSION=3.3
 
-# cmake.bash also sources common.bash
 source lib/cmake.bash
+
+goto_src_dir
 
 # $1: the package to download
 llvm_package_url() {
@@ -69,7 +70,7 @@ if $build_llvm_clang; then
 	popd
 
 	# Build and install.
-	create_build_dir $llvm_dir
+	create_cd_build_dir $llvm_dir
 	CC="$(which gcc)" CXX="$(which g++)" "$configure_path" --prefix="$PREFIX"
 
 	make_install

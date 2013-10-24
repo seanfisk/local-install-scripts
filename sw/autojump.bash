@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# This is used to go to the source directory.
-source lib/common.bash
+source lib/build.bash
+
+goto_src_dir
 
 # Download the tarball so we don't have a dependence on git. Also, we
 # don't need the history AND we can use an already-written function.

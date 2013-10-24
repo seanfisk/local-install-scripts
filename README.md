@@ -12,7 +12,7 @@ This repository provides scripts for installing various software within a standa
 1. Install the software of your choice.
 
     ```bash
-    ./emacs.bash # to install the latest version of Emacs
+    sw/emacs.bash # to install the latest version of Emacs
     ```
 
 ## Configuration

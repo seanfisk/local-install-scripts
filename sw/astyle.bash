@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source lib/common.bash
+source lib/build.bash
+
+goto_src_dir
 
 download_and_extract 'http://sourceforge.net/projects/astyle/files/astyle/astyle%202.03/astyle_2.03_linux.tar.gz'
 cd $src_dir_name/build/gcc

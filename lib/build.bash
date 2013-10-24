@@ -1,17 +1,17 @@
-set -o nounset
-set -o errexit
-set -o xtrace
+# General utilities helpful in building software.
 
-readonly PREFIX=$HOME/.local
-readonly SOURCE_DIR=$PREFIX/src
+source lib/config.bash
 
-# Sandbox directory for downloading sources
-[[ ! -d $SOURCE_DIR ]] && mkdir -p "$SOURCE_DIR"
-cd $SOURCE_DIR
+# Go into the src/ directory, the sandbox directory for downloading sources. Create if it doesn't exist.
+goto_src_dir() {
+	[[ ! -d $SOURCE_DIR ]] && mkdir -p "$SOURCE_DIR"
+	cd $SOURCE_DIR
+}
 
-# Download and extract a source archive (tarball).
+# Download and extract a source tarball in the current directory.
+# INPUT
 # $1: tarball URL
-# returns
+# OUTPUT VARS
 # $src_dir_name: name of the source directory
 download_and_extract()
 {
@@ -30,46 +30,29 @@ download_and_extract()
 	tar -xf "$archive_name"
 }
 
-# Create the build directory and change to it.
+# Create a project-specific build directory and make it the working directory.
+# INPUT
 # $1: name of the directory to create
-create_build_dir()
+create_cd_build_dir()
 {
-	local build_dir=$PREFIX/build/$1
+	local build_dir=$BUILD_DIR/$1
 	[[ -d $build_dir ]] && rm -r "$build_dir"
 	mkdir -p "$build_dir"
 	cd $build_dir
 }
 
-# Patches all executables in the current directory with the $PREFIX
-# rpath.
-set_rpath()
-{
-	find . -type f -executable -print0 | while read -r -d $'\0' exe; do
-		if [[ "$(file --brief "$exe")" == ELF*dynamically* ]]; then
-			patchelf --set-rpath "$(patchelf --print-rpath "$exe"):$PREFIX/lib:$PREFIX/lib64" "$exe"
-		fi
-	done
-}
-
-# Compress all executables in the current directory using UPX.
-compress_executables()
-{
-	find . -type f -executable -print0 | while read -r -d $'\0' exe; do
-		# If UPX refuses to compress the executable (due to permissions, file type, etc.) the executable will be unchanged but UPX will still exit with failure. Don't exit the script if this happens.
-		set +o errexit
-		upx --best "$exe"
-		set -o errexit
-	done
-}
-
 # Check to see if an executable is in the path.
+# INPUT
 # $1: the executable name to find
+# RETURN VALUE
+# 0 if found
 is_executable_in_path() {
 	builtin hash $1 2>/dev/null
 }
 
 
 # Run make and make install.
+# INPUT VARS
 # $EXTRA_MAKE_FLAGS: array of more flags to pass to make
 # $EXTRA_MAKE_STEPS: array of more make steps to run, e.g. ("make check")
 # $EXTRA_MAKE_INSTALL_FLAGS: array of more flags to pass to make install
@@ -79,12 +62,5 @@ make_install()
 	for step in ${EXTRA_MAKE_STEPS[@]:+${EXTRA_MAKE_STEPS[@]}}; do
 		make "$step"
 	done
-	# Patch rpath in binaries if patchelf is available.
-	if is_executable_in_path patchelf; then
-		set_rpath
-	fi
-	if is_executable_in_path upx; then
-		compress_executables
-	fi
 	make "${EXTRA_MAKE_INSTALL_FLAGS[@]:+${EXTRA_MAKE_INSTALL_FLAGS[@]}}" install
 }

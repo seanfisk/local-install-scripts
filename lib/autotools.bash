@@ -1,4 +1,6 @@
-source lib/common.bash
+# Handle autotools projects.
+
+source lib/build.bash
 
 # Download, configure, make, and make install an autotools project.
 #
@@ -9,10 +11,11 @@ source lib/common.bash
 # $1: tarball URL
 autotools()
 {
+	goto_src_dir
 	download_and_extract $1
 	configure_path="$PWD/$src_dir_name/configure"
 	if [[ -z ${IN_SOURCE:+IN_SOURCE} ]]; then
-		create_build_dir $src_dir_name
+		create_cd_build_dir $src_dir_name
 	else
 		cd $src_dir_name
 	fi

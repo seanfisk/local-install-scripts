@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source lib/common.bash
+source lib/build.bash
+
+goto_src_dir
 
 download_and_extract 'http://upx.sourceforge.net/download/upx-3.91-amd64_linux.tar.bz2'
 

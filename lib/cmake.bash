@@ -1,3 +1,5 @@
+# Handle CMake projects.
+
 source lib/common.bash
 
 # Download, CMake, and make a CMake project.
@@ -9,10 +11,11 @@ source lib/common.bash
 # $1: tarball URL
 cmake_install()
 {
+	goto_src_dir
 	download_and_extract $1
 	source_path="$PWD/$src_dir_name"
 	if [[ -z ${IN_SOURCE:+IN_SOURCE} ]]; then
-		create_build_dir $src_dir_name
+		create_cd_build_dir $src_dir_name
 	else
 		cd $src_dir_name
 	fi
