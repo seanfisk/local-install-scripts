@@ -7,7 +7,7 @@ source lib/build.bash
 # This defaults to an out-of-source build.
 #
 # $IN_SOURCE: do an in-source build, default is out-of-source
-# $EXTRA_CONFIGURE_FLAGS: array of more flags to pass to configure
+# $EXTRA_CONFIGURE_FLAGS: array of more flags to pass to configure; be aware that when passing these you override the default values of CPPFLAGS and LDFLAGS, so you must include the original values if necessary.
 # $1: tarball URL
 autotools()
 {
@@ -19,6 +19,10 @@ autotools()
 	else
 		cd $src_dir_name
 	fi
-	"$configure_path" --prefix="$PREFIX" "${EXTRA_CONFIGURE_FLAGS[@]:+${EXTRA_CONFIGURE_FLAGS[@]}}"
+	"$configure_path" \
+		--prefix="$PREFIX" \
+		CPPFLAGS="-I$PREFIX/include" \
+		LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64 -Wl,-rpath,$PREFIX/lib" \
+		"${EXTRA_CONFIGURE_FLAGS[@]:+${EXTRA_CONFIGURE_FLAGS[@]}}"
 	make_install
 }

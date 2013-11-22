@@ -13,7 +13,7 @@ goto_src_dir
 download_and_extract "https://git-core.googlecode.com/files/git-$GIT_VERSION.tar.gz"
 
 pushd $src_dir_name
-readonly MAKE_FLAGS=("prefix=$PREFIX" V=1 CPPFLAGS="-I$PREFIX/include" LDFLAGS="-L$PREFIX/lib")
+readonly MAKE_FLAGS=("prefix=$PREFIX" V=1 CPPFLAGS="-I$PREFIX/include" LDFLAGS="-L$PREFIX/lib -Wl,-rpath,$PREFIX/lib")
 EXTRA_MAKE_FLAGS=("${MAKE_FLAGS[@]}")
 EXTRA_MAKE_INSTALL_FLAGS=("${MAKE_FLAGS[@]}")
 
