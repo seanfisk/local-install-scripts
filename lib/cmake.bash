@@ -19,6 +19,9 @@ cmake_install()
 	else
 		cd $src_dir_name
 	fi
-	cmake -DCMAKE_INSTALL_PREFIX="$PREFIX" ${EXTRA_CMAKE_FLAGS[@]:+EXTRA_CMAKE_FLAGS[@]} "$source_path"
+	cmake \
+		-DCMAKE_INSTALL_PREFIX="$PREFIX" \
+		"${EXTRA_CMAKE_FLAGS[@]:+${EXTRA_CMAKE_FLAGS[@]}}" \
+		"$source_path"
 	make_install
 }
