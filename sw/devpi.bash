@@ -22,6 +22,7 @@ cd usr
 devpi-server --gendeploy "$VENV_NAME" --port 4040
 
 # We can't make a hard or soft link because the devpi-ctl script relies on knowing from where it is run. Hack around it.
+mkdir "$PREFIX/bin" # create if it doesn't exist
 passthru_script_path="$PREFIX/bin/devpi-ctl"
 cat <<EOF > "$passthru_script_path"
 #!/usr/bin/env bash
