@@ -30,7 +30,13 @@ exec '$PREFIX/usr/$VENV_NAME/bin/devpi-ctl' "\$@"
 EOF
 chmod +x "$passthru_script_path"
 
+# Uninstall the devpi-server module, as it is no longer needed.
 pip uninstall -y devpi-server
 if hash pyenv; then
 	pyenv rehash
+fi
+
+# Schedule devpi to be run at startup, only on Mac OS X.
+if [[ "$(uname)" == Darwin ]]; then
+	crontab "$VENV_NAME/etc/crontab"
 fi
