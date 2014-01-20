@@ -11,11 +11,17 @@ goto_src_dir() {
 # Download and extract a source tarball in the current directory.
 # INPUT
 # $1: tarball URL
+# $2: [optional] desired destination archive name (useful for Github master branch downloads)
 # OUTPUT VARS
 # $src_dir_name: name of the source directory
 download_and_extract()
 {
-	local archive_name=${1##*/}
+	local archive_name
+	if [[ $# -eq 2 ]]; then
+		archive_name=$2
+	else
+		archive_name=${1##*/}
+	fi
 	if [[ ! -f $archive_name ]]; then
 		# Use downloaded archives if they exist. May not be the safest option, but is certainly the fastest.
 
