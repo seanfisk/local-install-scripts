@@ -4,7 +4,8 @@ source lib/build.bash
 
 goto_src_dir
 
-download_and_extract 'http://sourceforge.net/projects/astyle/files/astyle/astyle%202.03/astyle_2.03_linux.tar.gz'
+readonly ASTYLE_VERSION='2.04'
+download_and_extract "http://sourceforge.net/projects/astyle/files/astyle/astyle%20$ASTYLE_VERSION/astyle_${ASTYLE_VERSION}_linux.tar.gz"
 cd $src_dir_name/build/gcc
 
 # Replace janked install command. The original version fails in our
