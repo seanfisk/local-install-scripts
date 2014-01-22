@@ -22,6 +22,7 @@ cd usr
 devpi-server --gendeploy "$VENV_NAME" --port 4040
 
 # We can't make a hard or soft link because the devpi-ctl script relies on knowing from where it is run. Hack around it.
+mkdir "$PREFIX/bin" # create if it doesn't exist
 passthru_script_path="$PREFIX/bin/devpi-ctl"
 cat <<EOF > "$passthru_script_path"
 #!/usr/bin/env bash
@@ -29,7 +30,13 @@ exec '$PREFIX/usr/$VENV_NAME/bin/devpi-ctl' "\$@"
 EOF
 chmod +x "$passthru_script_path"
 
+# Uninstall the devpi-server module, as it is no longer needed.
 pip uninstall -y devpi-server
 if hash pyenv; then
 	pyenv rehash
+fi
+
+# Schedule devpi to be run at startup, only on Mac OS X.
+if [[ "$(uname)" == Darwin ]]; then
+	crontab "$VENV_NAME/etc/crontab"
 fi
