@@ -5,8 +5,9 @@ source lib/build.bash
 goto_src_dir
 
 # Since we're downloading the master branch, we don't want caching.
-rm autojump-master.tar.gz
-download_and_extract 'https://github.com/joelthelion/autojump/archive/master.tar.gz' autojump-master.tar.gz
+readonly ARCHIVE=autojump-master.tar.gz
+[[ -f $ARCHIVE ]] && rm "$ARCHIVE"
+download_and_extract 'https://github.com/joelthelion/autojump/archive/master.tar.gz' "$ARCHIVE"
 
 cd $src_dir_name
 
