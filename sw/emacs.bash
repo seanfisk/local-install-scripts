@@ -7,4 +7,4 @@ source lib/autotools.bash
 # Also build without gif support.
 EXTRA_CONFIGURE_FLAGS=("CPPFLAGS=-I$PREFIX/include" "LDFLAGS=-L$PREFIX/lib" --with-gif=no)
 
-autotools ftp://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz
+autotools http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.gz
