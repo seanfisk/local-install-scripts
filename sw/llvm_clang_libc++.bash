@@ -31,7 +31,7 @@ else
 	build_libcxx=true
 fi
 
-readonly LLVM_VERSION=3.3
+readonly LLVM_VERSION=3.4
 
 source lib/cmake.bash
 
@@ -58,8 +58,8 @@ if $build_llvm_clang; then
 
 	# Download Clang.
 	pushd $llvm_dir/tools
-	# For 3.3, `clang-' was changed to `cfe-' (for Clang Front-End).
-	download_and_extract_llvm_package cfe
+	# For 3.3, `clang-' was changed to `cfe-' (for Clang Front-End). But then in 3.4, they changed it back to `clang-'. Geez; make up your mind.
+	download_and_extract_llvm_package clang
 	mv "$src_dir_name" clang
 	popd
 
