@@ -1,6 +1,6 @@
 # Handle CMake projects.
 
-source lib/common.bash
+source lib/build.bash
 
 # Download, CMake, and make a CMake project.
 #
