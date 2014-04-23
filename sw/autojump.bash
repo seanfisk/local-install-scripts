@@ -14,4 +14,4 @@ cd $src_dir_name
 # This command DOESN'T obey the $PREFIX. It just installs everything
 # to the home directory in the ~/.autojump directory. Since this is
 # almost always what we want, that's fine.
-./install.sh --local
+./install.py
