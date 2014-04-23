@@ -86,20 +86,17 @@ if $build_libcxx; then
 
 	# Find necessary headers. This is probably not portable, so just
 	# test it on every machine first. This was run on Yellowstone.
-	headers_arr=($(echo | g++ -Wp,-v -x c++ - -fsyntax-only >/dev/null 2>&1 | grep -F c++ | head -2))
+	headers_arr=($(echo | g++ -Wp,-v -x c++ - -fsyntax-only 2>&1 | grep -F c++ | head -2))
 
 	# Convert it to a colon-separated path.
 	IFS=';'
-	# The nounset option flips out here for some reason.
-	set +o nounset
 	headers_path="${headers_arr[*]}"
-	set -o nounset
 	unset IFS
 
 	# Build and install.
 	export CC=clang
 	export CXX=clang++
 	# I think Unix Makefiles is the default, but let's include it anyway.
-	EXTRA_CMAKE_FLAGS=('-G' 'Unix Makefiles' '-DLIBCXX_CXX_ABI=libsupc++' '-DCMAKE_BUILD_TYPE=Release' "-DLIBCXX_LIBSUPCXX_INCLUDE_PATHS='$headers_path'")
+	EXTRA_CMAKE_FLAGS=('-G' 'Unix Makefiles' '-DLIBCXX_CXX_ABI=libstdc++' '-DCMAKE_BUILD_TYPE=Release' "-DLIBCXX_LIBSUPCXX_INCLUDE_PATHS=$headers_path")
 	cmake_install "$(llvm_package_url libcxx)"
 fi
