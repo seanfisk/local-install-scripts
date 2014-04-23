@@ -7,7 +7,7 @@ readonly BOOST_VERSION_UNDERSCORE=${BOOST_VERSION//./_}
 readonly BOOST_DIRECTORY=boost_$BOOST_VERSION_UNDERSCORE
 
 goto_src_dir
-rm -r "$BOOST_DIRECTORY"
+[[ -d "$BOOST_DIRECTORY" ]] && rm -r "$BOOST_DIRECTORY"
 download_and_extract "http://sourceforge.net/projects/boost/files/boost/$BOOST_VERSION/$BOOST_DIRECTORY.tar.bz2"
 
 cd $src_dir_name
